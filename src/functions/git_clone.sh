@@ -54,6 +54,10 @@ clone_repo() {
 
     GIT_COMMIT_ID="$git_commit_id"
     GIT_SHORT_COMMIT_ID="$git_short_commit_id"
+
+    echo "export GIT_COMMIT_ID=${GIT_COMMIT_ID}" >> "$app_source_base_dir/.env"
+    echo "export GIT_SHORT_COMMIT_ID=${GIT_COMMIT_ID}" >> "$app_source_base_dir/.env"
+    cat "$app_source_base_dir/.env"
 }
 
 main() {
