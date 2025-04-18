@@ -2,6 +2,8 @@
 # Purpose: Initialize workspace for stage.
 # --------------------------------------
 
+GLOBAL_ENV_VAR_DIR="${GLOBAL_ENV_VAR_DIR:-$(pwd)}"
+GLOBAL_ENV_VAR_FILE="${GLOBAL_ENV_VAR_FILE:-.env}"
 STAGE_NAME="${STAGE_NAME:-}"
 APP_SOURCE="${APP_SOURCE:-app_source}"
 BOOTSTRAP_BASE_DIR="${BOOTSTRAP_BASE_DIR:-$(pwd)}"
@@ -30,7 +32,8 @@ set_up_bootstrap_stage() {
 
     echo "> Expose paths into Azure Devops envs."
     local expose_ado_env_vars="export FLOW_BOOTSTRAP_SECTION_PATH=${bootstrap_section_path}"
-    echo "${expose_ado_env_vars}"
+
+    echo "${expose_ado_env_vars}" >> $GLOBAL_ENV_VAR_DIR/$GLOBAL_ENV_VAR_FILE
 }
 
 set_up_build_stage() {
@@ -66,7 +69,7 @@ EOF
 
     echo "> Expose paths into Azure Devops envs."
     local expose_ado_env_vars="export FLOW_BUILD_SECTION_PATH=${build_section_path}"
-    echo "${expose_ado_env_vars}"
+    echo "${expose_ado_env_vars}" >> $GLOBAL_ENV_VAR_DIR/$GLOBAL_ENV_VAR_FILE
 }
 
 set_up_unit_test_stage() {
@@ -95,7 +98,7 @@ EOF
 
     echo "> Expose paths into Azure Devops envs."
     local expose_ado_env_vars="export FLOW_UNIT_TEST_SECTION_PATH=${unit_test_section_path}"
-    echo "${expose_ado_env_vars}"
+    echo "${expose_ado_env_vars}" >> $GLOBAL_ENV_VAR_DIR/$GLOBAL_ENV_VAR_FILE
 }
 
 set_up_deployment_stage() {
@@ -109,7 +112,7 @@ set_up_deployment_stage() {
 
     echo "> Expose paths into Azure Devops envs."
     local expose_ado_env_vars="export FLOW_DEPLOYMENT_SECTION_PATH=${deployment_section_path}"
-    echo "${expose_ado_env_vars}"
+    echo "${expose_ado_env_vars}" >> $GLOBAL_ENV_VAR_DIR/$GLOBAL_ENV_VAR_FILE
 }
 
 main() {
