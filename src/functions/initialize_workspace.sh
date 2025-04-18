@@ -31,8 +31,7 @@ set_up_bootstrap_stage() {
     tree "${bootstrap_section_path}"
 
     echo "> Expose paths into Azure Devops envs."
-    local expose_ado_env_vars="export FLOW_BOOTSTRAP_SECTION_PATH=${bootstrap_section_path}"
-
+    local expose_ado_env_vars="export FLOW_BOOTSTRAP_SECTION_DIR=${bootstrap_section_path}"
     echo "${expose_ado_env_vars}" >> $GLOBAL_ENV_VAR_DIR/$GLOBAL_ENV_VAR_FILE
 }
 
@@ -68,7 +67,7 @@ EOF
     tree "${build_section_path}"
 
     echo "> Expose paths into Azure Devops envs."
-    local expose_ado_env_vars="export FLOW_BUILD_SECTION_PATH=${build_section_path}"
+    local expose_ado_env_vars="export FLOW_BUILD_SECTION_DIR=${build_section_path}"
     echo "${expose_ado_env_vars}" >> $GLOBAL_ENV_VAR_DIR/$GLOBAL_ENV_VAR_FILE
 }
 
@@ -97,7 +96,7 @@ EOF
     tree "${unit_test_section_path}"
 
     echo "> Expose paths into Azure Devops envs."
-    local expose_ado_env_vars="export FLOW_UNIT_TEST_SECTION_PATH=${unit_test_section_path}"
+    local expose_ado_env_vars="export FLOW_UNIT_TEST_SECTION_DIR=${unit_test_section_path}"
     echo "${expose_ado_env_vars}" >> $GLOBAL_ENV_VAR_DIR/$GLOBAL_ENV_VAR_FILE
 }
 
@@ -111,7 +110,7 @@ set_up_deployment_stage() {
     tree "${deployment_section_path}"
 
     echo "> Expose paths into Azure Devops envs."
-    local expose_ado_env_vars="export FLOW_DEPLOYMENT_SECTION_PATH=${deployment_section_path}"
+    local expose_ado_env_vars="export FLOW_DEPLOYMENT_SECTION_DIR=${deployment_section_path}"
     echo "${expose_ado_env_vars}" >> $GLOBAL_ENV_VAR_DIR/$GLOBAL_ENV_VAR_FILE
 }
 
