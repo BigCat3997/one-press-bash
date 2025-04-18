@@ -2,8 +2,6 @@
 # Purpose: Initialize workspace for stage.
 # --------------------------------------
 
-GLOBAL_ENV_VAR_DIR="${GLOBAL_ENV_VAR_DIR:-$(pwd)}"
-GLOBAL_ENV_VAR_FILE="${GLOBAL_ENV_VAR_FILE:-.env}"
 STAGE_NAME="${STAGE_NAME:-}"
 APP_SOURCE="${APP_SOURCE:-app_source}"
 BOOTSTRAP_BASE_DIR="${BOOTSTRAP_BASE_DIR:-$(pwd)}"
@@ -20,6 +18,8 @@ TARGET_UNIT_TEST_APP="${TARGET_UNIT_TEST_APP:-}"
 TARGET_UNIT_TEST_OUTPUT="${TARGET_UNIT_TEST_OUTPUT:-}"
 DEPLOYMENT_BASE_DIR="${DEPLOYMENT_BASE_DIR:-$(pwd)}"
 DEPLOYMENT_SECTION="${DEPLOYMENT_SECTION:-deployment_section}"
+GLOBAL_ENV_VAR_DIR="${GLOBAL_ENV_VAR_DIR:-$(pwd)}"
+GLOBAL_ENV_VAR_FILE="${GLOBAL_ENV_VAR_FILE:-.env}"
 
 set_up_bootstrap_stage() {
     local bootstrap_base_dir="$1"
