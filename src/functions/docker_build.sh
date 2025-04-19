@@ -86,6 +86,7 @@ build_docker_image() {
 }
 
 execute() {
+    activate_global_env_vars
     activate_required_env_vars
 
     # Parse publisher file
