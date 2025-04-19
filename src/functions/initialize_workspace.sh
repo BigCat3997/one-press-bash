@@ -16,8 +16,8 @@ BUILD_BASE_DIR="${BUILD_BASE_DIR:-$(pwd)}"
 BUILD_SECTION="${BUILD_SECTION:-build_section}"
 BUILD_APP="${BUILD_APP:-build_app}"
 BUILD_DOCKER="${BUILD_DOCKER:-build_docker}"
-TARGET_BUILD_APP="${TARGET_BUILD_APP:-}"
-TARGET_BUILD_OUTPUT="${TARGET_BUILD_OUTPUT:-}"
+# TARGET_BUILD_APP="${TARGET_BUILD_APP:-}"
+# TARGET_BUILD_OUTPUT="${TARGET_BUILD_OUTPUT:-}"
 UNIT_TEST_BASE_DIR="${UNIT_TEST_BASE_DIR:-$(pwd)}"
 UNIT_TEST_SECTION="${UNIT_TEST_SECTION:-unit_test_section}"
 TARGET_UNIT_TEST_APP="${TARGET_UNIT_TEST_APP:-}"
@@ -50,21 +50,19 @@ set_up_build_stage() {
     local build_section="$3"
     local build_app="$4"
     local build_docker="$5"
-    local target_build_app="$6"
-    local target_build_output="$7"
+    # local target_build_app="$6"
+    # local target_build_output="$7"
 
     local build_section_path="${build_base_dir}/${build_section}"
     local build_app_path="${build_section_path}/${build_app}"
     local build_docker_path="${build_section_path}/${build_docker}"
-    local target_build_output_path="${build_app_path}/${app_source}/${target_build_app}/${target_build_output}"
+    # local target_build_output_path="${build_app_path}/${app_source}/${target_build_app}/${target_build_output}"
 
     trace_paths=$(
         cat <<EOF
 Build section path: ${build_section_path}
 Build app path: ${build_app_path}
 Build docker path: ${build_docker_path}
-Target build app path: ${target_build_app_path}
-Target build output path: ${target_build_output_path}
 EOF
     )
     echo "${trace_paths}"
