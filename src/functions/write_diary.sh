@@ -29,7 +29,7 @@ HOST_PRIVATE_ENV_VARS="${HOST_PRIVATE_ENV_VARS:-}"
 
 main() {
     source ${GLOBAL_ENV_VAR_MANAGER_SCRIPT_PATH}
-    activate_env_vars
+    activate_global_env_vars
 
     if [[ "$IS_IMAGE_TAG_BASED_ON_ENV" == "true" ]]; then
         IMAGE_TAGS=$(echo "$DOCKER_MULTIPLE_TAGS_ENVS" | jq -c 'reduce .[] as $env ({}; .[$env] = ($env + "." + $ENV.DOCKER_IMAGE_TAG))')

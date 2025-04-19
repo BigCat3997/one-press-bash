@@ -22,7 +22,7 @@ write_env_vars() {
     echo "> Content written to $GLOBAL_ENV_VAR_FILE_PATH"
 }
 
-activate_env_vars() {
+activate_global_env_vars() {
     if [ -f "$GLOBAL_ENV_VAR_FILE_PATH" ]; then
         source "$GLOBAL_ENV_VAR_FILE_PATH"
     else

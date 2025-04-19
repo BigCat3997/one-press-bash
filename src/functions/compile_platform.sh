@@ -7,7 +7,6 @@ set -e
 SCRIPTS_WORK_DIR=${SCRIPTS_WORK_DIR:=.}
 GLOBAL_ENV_VAR_MANAGER_SCRIPT_PATH="${SCRIPTS_WORK_DIR}/src/functions/global_env_var_manager.sh"
 
-
 # Declare required environment variables
 activate_required_env_vars() {
     APP_SOURCE_DIR="${APP_SOURCE_DIR:-${FLOW_BUILD_APP_DIR}/app_source}"
@@ -169,7 +168,7 @@ compile() {
 # Main execution function
 execute() {
     source ${GLOBAL_ENV_VAR_MANAGER_SCRIPT_PATH}
-    activate_env_vars
+    activate_global_env_vars
     activate_required_env_vars
     compile
 }

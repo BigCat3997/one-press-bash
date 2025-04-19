@@ -72,7 +72,7 @@ clone_repo() {
 
 main() {
     source "${GLOBAL_ENV_VAR_MANAGER_SCRIPT_PATH}"
-    activate_env_vars
+    activate_global_env_vars
 
     clone_repo "$APP_SOURCE_BASE_DIR" "$APP_SOURCE" "$IS_PRIVATE_REPO" "$GIT_BRANCH" "$GIT_URL" "$GIT_USERNAME" "$GIT_TOKEN" "$IS_DELETE_GIT_DIR"
 }
