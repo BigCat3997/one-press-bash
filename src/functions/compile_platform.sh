@@ -2,10 +2,9 @@
 
 set -e
 
-# Fetch required environment variables
-fetch_required_env_vars() {
+get_required_env_vars() {
+    APP_SOURCE_DIR="${APP_SOURCE_DIR:-${FLOW_BUILD_APP_DIR}/app_source}"
     TARGET_SUB_DIR="${TARGET_SUB_DIR:-}"
-    APP_SOURCE_DIR="${APP_SOURCE_DIR:-}"
     TARGET_BUILD_APP="${TARGET_BUILD_APP:-}"
     TARGET_BUILD_OUTPUT="${TARGET_BUILD_OUTPUT:-}"
     TARGET_PLATFORM="${TARGET_PLATFORM:-}"
@@ -16,7 +15,6 @@ fetch_required_env_vars() {
     ENV_BUILD_RESOURCE_DIR="${ENV_BUILD_RESOURCE_DIR:-}"
 }
 
-# Expose environment variables for Azure DevOps
 expose_ado_env_vars() {
     local prefix_var="$1"
     declare -A env_vars=("${!2}")
@@ -105,7 +103,7 @@ npm_compile() {
 
 # Main compile function
 compile() {
-    fetch_required_env_vars
+    get_required_env_vars
 
     # Handle empty TARGET_SUB_DIR to avoid `//`
     local build_work_dir_path="${APP_SOURCE_DIR}"
