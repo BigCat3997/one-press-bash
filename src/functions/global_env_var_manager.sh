@@ -2,7 +2,7 @@
 # Purpose: Manage global environment variables for the build process.
 # --------------------------------------
 GLOBAL_ENV_VAR_DIR="${GLOBAL_ENV_VAR_DIR:-$(WORKSPACE)}"
-GLOBAL_ENV_VAR_FILE="${GLOBAL_ENV_VAR_PATH:-global_env_var.json}"
+GLOBAL_ENV_VAR_FILE="${GLOBAL_ENV_VAR_PATH:-.env}"
 GLOBAL_ENV_VAR_FILE_PATH="${GLOBAL_ENV_VAR_DIR}/${GLOBAL_ENV_VAR_FILE}"
 
 write_env_vars() {
