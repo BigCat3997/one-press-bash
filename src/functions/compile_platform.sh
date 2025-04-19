@@ -43,7 +43,7 @@ maven_compile() {
     fi
 
     echo "Checking Maven version..."
-    mvn --version
+    ./mvnw --version
 
     maven_goals="${maven_goals:-./mvnw clean package}"
     echo "Running Maven goals: $maven_goals"
