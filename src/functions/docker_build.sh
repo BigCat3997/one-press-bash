@@ -110,7 +110,7 @@ execute() {
     ls -la "$TARGET_DOCKER_RESOURCE_PATH"
     ls -la "$TARGET_BUILD_DOCKER_PATH"
 
-    cp -r "$TARGET_BUILD_OUTPUT_PATH" "$TARGET_BUILD_DOCKER_PATH"
+    cp "/home/jenkins/workspace/maven-simple-api-docker/build_section/build_app/app_source/target/simple-project-0.0.1-SNAPSHOT.jar" "$TARGET_BUILD_DOCKER_PATH"
     cp -r "$TARGET_DOCKER_RESOURCE_PATH" "$TARGET_BUILD_DOCKER_PATH"
 
     echo "Verifying content of target build Docker path: $TARGET_BUILD_DOCKER_PATH"
