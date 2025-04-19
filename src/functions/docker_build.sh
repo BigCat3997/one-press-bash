@@ -1,9 +1,16 @@
 #!/bin/bash
-
+# Purpose: Build and publish Docker images.
+# --------------------------------------
 set -e
+#============================================
+# Declare required script's paths as dependencies
+SCRIPTS_WORK_DIR=${SCRIPTS_WORK_DIR:=.}
+GLOBAL_ENV_VAR_MANAGER_SCRIPT_PATH="${SCRIPTS_WORK_DIR}/src/functions/global_env_var_manager.sh"
+source ${GLOBAL_ENV_VAR_MANAGER_SCRIPT_PATH}
+#============================================
 
 # Fetch required environment variables
-fetch_required_env_vars() {
+activate_required_env_vars() {
     PUBLISH_FILE_PATH="${PUBLISH_FILE_PATH:-}"
     DOCKER_RESOURCE_WORK_DIR="${DOCKER_RESOURCE_WORK_DIR:-}"
     DOCKER_TARGET_DOCKERFILE="${DOCKER_TARGET_DOCKERFILE:-}"
@@ -78,9 +85,8 @@ build_docker_image() {
     docker push "$image_name:$tag"
 }
 
-# Main execution function
 execute() {
-    fetch_required_env_vars
+    activate_required_env_vars
 
     # Parse publisher file
     parse_publisher_file "$PUBLISH_FILE_PATH"
