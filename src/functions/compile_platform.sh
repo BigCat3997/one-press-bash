@@ -107,8 +107,18 @@ npm_compile() {
 compile() {
     fetch_required_env_vars
 
-    local build_work_dir_path="${APP_SOURCE_DIR}/${TARGET_SUB_DIR}/${TARGET_BUILD_APP}"
-    local build_output_path="${APP_SOURCE_DIR}/${TARGET_SUB_DIR}/${TARGET_BUILD_OUTPUT}"
+    # Handle empty TARGET_SUB_DIR to avoid `//`
+    local build_work_dir_path="${APP_SOURCE_DIR}"
+    if [[ -n "$TARGET_SUB_DIR" ]]; then
+        build_work_dir_path="${build_work_dir_path}/${TARGET_SUB_DIR}"
+    fi
+    build_work_dir_path="${build_work_dir_path}/${TARGET_BUILD_APP}"
+
+    local build_output_path="${APP_SOURCE_DIR}"
+    if [[ -n "$TARGET_SUB_DIR" ]]; then
+        build_output_path="${build_output_path}/${TARGET_SUB_DIR}"
+    fi
+    build_output_path="${build_output_path}/${TARGET_BUILD_OUTPUT}"
 
     echo "Build work directory: $build_work_dir_path"
     echo "Build output directory: $build_output_path"
