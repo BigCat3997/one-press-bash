@@ -106,7 +106,7 @@ execute() {
 
     echo "Copying content of target Docker resource and build output to target build Docker path."
 
-    ls -la "$TARGET_BUILD_OUTPUT_PATH"
+    # ls -la "$TARGET_BUILD_OUTPUT_PATH"
     ls -la "$TARGET_DOCKER_RESOURCE_PATH"
     ls -la "$TARGET_BUILD_DOCKER_PATH"
 
