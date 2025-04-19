@@ -108,7 +108,7 @@ npm_compile() {
 
 # Main compile function
 compile() {
-    get_required_env_vars
+    # get_required_env_vars
 
     # Handle empty TARGET_SUB_DIR to avoid `//`
     local build_work_dir_path="${APP_SOURCE_DIR}"
