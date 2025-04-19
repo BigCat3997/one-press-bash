@@ -1,6 +1,13 @@
 #!/bin/bash
 # Purpose: Clone source code from Git Repository.
 # --------------------------------------
+set -e
+#============================================
+# Declare required script's paths as dependencies
+SCRIPTS_WORK_DIR=${SCRIPTS_WORK_DIR:=.}
+GLOBAL_ENV_VAR_MANAGER_SCRIPT_PATH="${SCRIPTS_WORK_DIR}/src/functions/global_env_var_manager.sh"
+
+# Declare required environment variables
 APP_SOURCE_BASE_DIR="${APP_SOURCE_BASE_DIR:-$(pwd)}"
 APP_SOURCE="${APP_SOURCE:-app_source}"
 IS_PRIVATE_REPO="${IS_PRIVATE_REPO:-false}"
@@ -11,6 +18,7 @@ GIT_TOKEN="${GIT_TOKEN}"
 IS_DELETE_GIT_DIR="${IS_DELETE_GIT_DIR:-false}"
 GIT_COMMIT_ID=""
 GIT_SHORT_COMMIT_ID=""
+#============================================
 
 clone_repo() {
     local app_source_base_dir="$1"
@@ -61,6 +69,9 @@ clone_repo() {
 }
 
 main() {
+    source "${GLOBAL_ENV_VAR_MANAGER_SCRIPT_PATH}"
+    activate_env_vars
+
     clone_repo "$APP_SOURCE_BASE_DIR" "$APP_SOURCE" "$IS_PRIVATE_REPO" "$GIT_BRANCH" "$GIT_URL" "$GIT_USERNAME" "$GIT_TOKEN" "$IS_DELETE_GIT_DIR"
 }
 

@@ -5,7 +5,7 @@ GLOBAL_ENV_VAR_DIR="${GLOBAL_ENV_VAR_DIR:-$(WORKSPACE)}"
 GLOBAL_ENV_VAR_FILE="${GLOBAL_ENV_VAR_PATH:-global_env_var.json}"
 GLOBAL_ENV_VAR_FILE_PATH="${GLOBAL_ENV_VAR_DIR}/${GLOBAL_ENV_VAR_FILE}"
 
-main() {
+write_env_vars() {
     if [ ! -d "$GLOBAL_ENV_VAR_DIR" ]; then
         echo "> Creating directory: $GLOBAL_ENV_VAR_DIR"
         mkdir -p "$GLOBAL_ENV_VAR_DIR"
@@ -22,4 +22,10 @@ main() {
     echo "> Content written to $GLOBAL_ENV_VAR_FILE_PATH"
 }
 
-main "$@"
+activate_env_vars() {
+    if [ -f "$GLOBAL_ENV_VAR_FILE_PATH" ]; then
+        source "$GLOBAL_ENV_VAR_FILE_PATH"
+    else
+        echo "> File not found: $GLOBAL_ENV_VAR_FILE_PATH"
+    fi
+}
