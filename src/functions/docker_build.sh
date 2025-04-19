@@ -103,7 +103,7 @@ execute() {
     tree "$TARGET_DOCKER_RESOURCE_PATH"
 
     echo "Copying content of target Docker resource and build output to target build Docker path."
-    cp -r "$TARGET_BUILD_OUTPUT_PATH" "$TARGET_BUILD_DOCKER_PATH"
+    cp "$TARGET_BUILD_OUTPUT_PATH" "$TARGET_BUILD_DOCKER_PATH"
     cp -r "$TARGET_DOCKER_RESOURCE_PATH" "$TARGET_BUILD_DOCKER_PATH"
 
     echo "Verifying content of target build Docker path: $TARGET_BUILD_DOCKER_PATH"
