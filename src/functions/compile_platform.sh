@@ -7,17 +7,21 @@ set -e
 SCRIPTS_WORK_DIR=${SCRIPTS_WORK_DIR:=.}
 GLOBAL_ENV_VAR_MANAGER_SCRIPT_PATH="${SCRIPTS_WORK_DIR}/src/functions/global_env_var_manager.sh"
 
+
 # Declare required environment variables
-APP_SOURCE_DIR="${APP_SOURCE_DIR:-${FLOW_BUILD_APP_DIR}/app_source}"
-TARGET_SUB_DIR="${TARGET_SUB_DIR:-}"
-TARGET_BUILD_APP="${TARGET_BUILD_APP:-}"
-TARGET_BUILD_OUTPUT="${TARGET_BUILD_OUTPUT:-}"
-TARGET_PLATFORM="${TARGET_PLATFORM:-}"
-GOAL_COMMAND="${GOAL_COMMAND:-}"
-IS_USE_PRIVATE_LIBS="${IS_USE_PRIVATE_LIBS:-false}"
-NUGET_CONFIG_PATH="${NUGET_CONFIG_PATH:-}"
-SETTINGS_XML_PATH="${SETTINGS_XML_PATH:-}"
-ENV_BUILD_RESOURCE_DIR="${ENV_BUILD_RESOURCE_DIR:-}"
+activate_required_env_vars() {
+    APP_SOURCE_DIR="${APP_SOURCE_DIR:-${FLOW_BUILD_APP_DIR}/app_source}"
+    TARGET_SUB_DIR="${TARGET_SUB_DIR:-}"
+    TARGET_BUILD_APP="${TARGET_BUILD_APP:-}"
+    TARGET_BUILD_OUTPUT="${TARGET_BUILD_OUTPUT:-}"
+    TARGET_PLATFORM="${TARGET_PLATFORM:-}"
+    GOAL_COMMAND="${GOAL_COMMAND:-}"
+    IS_USE_PRIVATE_LIBS="${IS_USE_PRIVATE_LIBS:-false}"
+    NUGET_CONFIG_PATH="${NUGET_CONFIG_PATH:-}"
+    SETTINGS_XML_PATH="${SETTINGS_XML_PATH:-}"
+    ENV_BUILD_RESOURCE_DIR="${ENV_BUILD_RESOURCE_DIR:-}"
+}
+
 #============================================
 
 expose_ado_env_vars() {
@@ -166,7 +170,7 @@ compile() {
 execute() {
     source ${GLOBAL_ENV_VAR_MANAGER_SCRIPT_PATH}
     activate_env_vars
-
+    activate_required_env_vars
     compile
 }
 
