@@ -68,13 +68,13 @@ EOF
 
     echo "> Expose paths into Azure Devops envs."
     local exposed_build_base_dir="export FLOW_BUILD_BASE_DIR=${build_base_dir}"
-    local exposed_build_section_path="export FLOW_BUILD_SECTION_DIR=${build_section_path}"
-    local exposed_build_app_path="export FLOW_BUILD_APP_DIR=${build_app_path}"
-    local exposed_build_docker_path="export FLOW_BUILD_DOCKER_DIR=${build_docker_path}"
+    local exposed_build_section_dir="export FLOW_BUILD_SECTION_DIR=${build_section_path}"
+    local exposed_build_app_dir="export FLOW_BUILD_APP_DIR=${build_app_path}"
+    local exposed_build_docker_dir="export FLOW_BUILD_DOCKER_DIR=${build_docker_path}"
     echo "${exposed_build_base_dir}" >> $GLOBAL_ENV_VAR_DIR/$GLOBAL_ENV_VAR_FILE
-    echo "${exposed_build_section_path}" >> $GLOBAL_ENV_VAR_DIR/$GLOBAL_ENV_VAR_FILE
-    echo "${exposed_build_app_path}" >> $GLOBAL_ENV_VAR_DIR/$GLOBAL_ENV_VAR_FILE
-    echo "${exposed_build_docker_path}" >> $GLOBAL_ENV_VAR_DIR/$GLOBAL_ENV_VAR_FILE
+    echo "${exposed_build_section_dir}" >> $GLOBAL_ENV_VAR_DIR/$GLOBAL_ENV_VAR_FILE
+    echo "${exposed_build_app_dir}" >> $GLOBAL_ENV_VAR_DIR/$GLOBAL_ENV_VAR_FILE
+    echo "${exposed_build_docker_dir}" >> $GLOBAL_ENV_VAR_DIR/$GLOBAL_ENV_VAR_FILE
     cat $GLOBAL_ENV_VAR_DIR/$GLOBAL_ENV_VAR_FILE
 }
 
