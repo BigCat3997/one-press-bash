@@ -6,6 +6,7 @@ set -e
 # Declare required script's paths as dependencies
 SCRIPTS_WORK_DIR=${SCRIPTS_WORK_DIR:=.}
 GLOBAL_ENV_VAR_MANAGER_SCRIPT_PATH="${SCRIPTS_WORK_DIR}/src/functions/global_env_var_manager.sh"
+source ${GLOBAL_ENV_VAR_MANAGER_SCRIPT_PATH}
 
 # Declare required environment variables
 PUBLISH_PREFIX_PATH="${PUBLISH_PREFIX_PATH:-.}"
@@ -28,16 +29,14 @@ HOST_PRIVATE_ENV_VARS="${HOST_PRIVATE_ENV_VARS:-}"
 #============================================
 
 main() {
-    source ${GLOBAL_ENV_VAR_MANAGER_SCRIPT_PATH}
     activate_global_env_vars
-    env
 
-    DOCKER_IMAGE_TAG=$BUILD_NUMBER.$GIT_COMMIT_ID
+    DOCKER_IMAGE_TAG=$BUILD_NUMBER.$GIT_SHORT_COMMIT_ID
 
     if [[ "$IS_IMAGE_TAG_BASED_ON_ENV" == "true" ]]; then
         IMAGE_TAGS=$(echo "$DOCKER_MULTIPLE_TAGS_ENVS" | jq -c 'reduce .[] as $env ({}; .[$env] = ($env + "." + $ENV.DOCKER_IMAGE_TAG))')
     else
-        IMAGE_TAGS=$(jq -n --arg tag "$DOCKER_IMAGE_TAG" '{"default":$tag}')
+        IMAGE_TAGS=$(jq -n --arg tag "$DOCKER_IMAGE_TAG" '{"base":$tag}')
     fi
 
     PUBLISHER=$(jq -n \
@@ -47,6 +46,8 @@ main() {
         --arg pipeline_name "$PIPELINE_NAME" \
         --arg build_number "$BUILD_NUMBER" \
         --arg docker_server_uri "$DOCKER_SERVER_URI" \
+        --arg image_name "$DOCKER_IMAGE_NAME" \
+        --arg is_image_tag_based_on_env "$IS_IMAGE_TAG_BASED_ON_ENV" \
         --argjson image_tags "$IMAGE_TAGS" \
         '{
             git_url: $git_url,
@@ -55,6 +56,8 @@ main() {
             pipeline_name: $pipeline_name,
             build_number: $build_number,
             docker_server_uri: $docker_server_uri,
+            image_name: $image_name,
+            is_image_tag_based_on_env: $is_image_tag_based_on_env,
             image_tags: $image_tags,
         }')
 
