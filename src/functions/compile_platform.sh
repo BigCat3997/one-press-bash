@@ -6,8 +6,9 @@ set -e
 # Declare required script's paths as dependencies
 SCRIPTS_WORK_DIR=${SCRIPTS_WORK_DIR:=.}
 GLOBAL_ENV_VAR_MANAGER_SCRIPT_PATH="${SCRIPTS_WORK_DIR}/src/functions/global_env_var_manager.sh"
+source ${GLOBAL_ENV_VAR_MANAGER_SCRIPT_PATH}
+#============================================
 
-# Declare required environment variables
 activate_required_env_vars() {
     APP_SOURCE_DIR="${APP_SOURCE_DIR:-${FLOW_BUILD_APP_DIR}/app_source}"
     TARGET_SUB_DIR="${TARGET_SUB_DIR:-}"
@@ -21,18 +22,6 @@ activate_required_env_vars() {
     ENV_BUILD_RESOURCE_DIR="${ENV_BUILD_RESOURCE_DIR:-}"
 }
 
-#============================================
-
-expose_ado_env_vars() {
-    local prefix_var="$1"
-    declare -A env_vars=("${!2}")
-    for key in "${!env_vars[@]}"; do
-        export "${prefix_var}${key}"="${env_vars[$key]}"
-        echo "Exported ${prefix_var}${key}=${env_vars[$key]}"
-    done
-}
-
-# Maven compilation
 maven_compile() {
     local maven_build_work_dir_path="$1"
     local maven_build_output_path="$2"
@@ -61,7 +50,6 @@ maven_compile() {
     (cd "$maven_build_work_dir_path" && eval "$maven_goals")
 }
 
-# .NET compilation
 dotnet_compile() {
     local dotnet_build_work_dir_path="$1"
     local dotnet_build_output_path="$2"
@@ -88,7 +76,6 @@ dotnet_compile() {
     (cd "$dotnet_build_work_dir_path" && eval "$dotnet_goals")
 }
 
-# NPM compilation
 npm_compile() {
     local npm_build_work_dir_path="$1"
     local npm_build_output_path="$2"
@@ -109,53 +96,46 @@ npm_compile() {
     (cd "$npm_build_work_dir_path" && eval "$npm_build_goal")
 }
 
-# Main compile function
 compile() {
-    # get_required_env_vars
-
-    # Handle empty TARGET_SUB_DIR to avoid `//`
-    local build_work_dir_path="${APP_SOURCE_DIR}"
+    local build_work_dir="${APP_SOURCE_DIR}"
     if [[ -n "$TARGET_SUB_DIR" ]]; then
-        build_work_dir_path="${build_work_dir_path}/${TARGET_SUB_DIR}"
+        build_work_dir="${build_work_dir}/${TARGET_SUB_DIR}"
     fi
-    build_work_dir_path="${build_work_dir_path}/${TARGET_BUILD_APP}"
+    if [[ -n "$TARGET_BUILD_APP" ]]; then
+        build_work_dir="${build_work_dir}/${TARGET_BUILD_APP}"
+    fi
 
-    local build_output_path="${APP_SOURCE_DIR}"
+    local build_output_dir="${APP_SOURCE_DIR}"
     if [[ -n "$TARGET_SUB_DIR" ]]; then
-        build_output_path="${build_output_path}/${TARGET_SUB_DIR}"
+        build_output_dir="${build_output_dir}/${TARGET_SUB_DIR}"
     fi
-    build_output_path="${build_output_path}/${TARGET_BUILD_OUTPUT}"
+    build_output_dir="${build_output_dir}/${TARGET_BUILD_OUTPUT}"
 
-    echo "Build work directory: $build_work_dir_path"
-    echo "Build output directory: $build_output_path"
-
-    # Expose paths as environment variables
-    export FLOW_TARGET_BUILD_APP_DIR="$build_work_dir_path"
-    export FLOW_TARGET_BUILD_OUTPUT_DIR="$build_output_path"
-    echo "Exported FLOW_TARGET_BUILD_APP_DIR=$FLOW_TARGET_BUILD_APP_DIR"
-    echo "Exported FLOW_TARGET_BUILD_OUTPUT_DIR=$FLOW_TARGET_BUILD_OUTPUT_DIR"
+    echo "Build work directory: $build_work_dir"
+    echo "Build output directory: $build_output_dir"
+    write_env_vars "export FLOW_TARGET_BUILD_APP_DIR=${build_work_dir}" "export FLOW_TARGET_BUILD_OUTPUT_DIR=${build_output_dir}"
 
     case "${TARGET_PLATFORM^^}" in
         "DOTNET")
             dotnet_compile \
-                "$build_work_dir_path" \
-                "$build_output_path" \
+                "$build_work_dir" \
+                "$build_output_dir" \
                 "$GOAL_COMMAND" \
                 "$IS_USE_PRIVATE_LIBS" \
                 "$NUGET_CONFIG_PATH"
             ;;
         "MAVEN")
             maven_compile \
-                "$build_work_dir_path" \
-                "$build_output_path" \
+                "$build_work_dir" \
+                "$build_output_dir" \
                 "$GOAL_COMMAND" \
                 "$IS_USE_PRIVATE_LIBS" \
                 "$SETTINGS_XML_PATH"
             ;;
         "NPM")
             npm_compile \
-                "$build_work_dir_path" \
-                "$build_output_path" \
+                "$build_work_dir" \
+                "$build_output_dir" \
                 "$ENV_BUILD_RESOURCE_DIR" \
                 "$GOAL_COMMAND"
             ;;
@@ -165,13 +145,10 @@ compile() {
     esac
 }
 
-# Main execution function
-execute() {
-    source ${GLOBAL_ENV_VAR_MANAGER_SCRIPT_PATH}
+main() {
     activate_global_env_vars
     activate_required_env_vars
     compile
 }
 
-# Run the script
-execute
+main "$@"
