@@ -109,21 +109,21 @@ execute() {
     echo "Verifying content of target build Docker path: $TARGET_BUILD_DOCKER_PATH"
     tree "$TARGET_BUILD_DOCKER_PATH"
 
-    # Build Docker image
-    build_docker_image \
-        "$IMAGE_NAME" \
-        "$IMAGE_TAG" \
-        "$DOCKER_BUILD_PATH" \
-        "$DOCKERS_ARGS_JSON" \
-        "$DOCKER_IS_PRIVATE_REGISTRY" \
-        "$DOCKER_SERVER_URI" \
-        "$DOCKER_SERVER_USERNAME" \
-        "$DOCKER_SERVER_PASSWORD" \
-        "$TARGET_BUILD_DOCKER_PATH"
+    # # Build Docker image
+    # build_docker_image \
+    #     "$IMAGE_NAME" \
+    #     "$IMAGE_TAG" \
+    #     "$DOCKER_BUILD_PATH" \
+    #     "$DOCKERS_ARGS_JSON" \
+    #     "$DOCKER_IS_PRIVATE_REGISTRY" \
+    #     "$DOCKER_SERVER_URI" \
+    #     "$DOCKER_SERVER_USERNAME" \
+    #     "$DOCKER_SERVER_PASSWORD" \
+    #     "$TARGET_BUILD_DOCKER_PATH"
 
-    echo "> Add tag on pipeline."
-    echo "image_name=$IMAGE_NAME"
-    echo "image_tag=$IMAGE_TAG"
+    # echo "> Add tag on pipeline."
+    # echo "image_name=$IMAGE_NAME"
+    # echo "image_tag=$IMAGE_TAG"
 }
 
 # Run the script
