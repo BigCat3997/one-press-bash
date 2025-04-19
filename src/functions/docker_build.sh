@@ -102,8 +102,10 @@ execute() {
     echo "Verifying content of target Docker resource path: $TARGET_DOCKER_RESOURCE_PATH"
     tree "$TARGET_DOCKER_RESOURCE_PATH"
 
+    tree $TARGET_BUILD_OUTPUT_PATH
+
     echo "Copying content of target Docker resource and build output to target build Docker path."
-    
+
     ls -la "$TARGET_BUILD_OUTPUT_PATH"
     ls -la "$TARGET_DOCKER_RESOURCE_PATH"
     ls -la "$TARGET_BUILD_DOCKER_PATH"
