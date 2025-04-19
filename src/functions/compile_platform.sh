@@ -45,7 +45,7 @@ maven_compile() {
     echo "Checking Maven version..."
     mvn --version
 
-    maven_goals="${maven_goals:-mvn clean package}"
+    maven_goals="${maven_goals:-./mvnw clean package}"
     echo "Running Maven goals: $maven_goals"
     (cd "$maven_build_work_dir_path" && eval "$maven_goals")
 }
