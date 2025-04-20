@@ -75,7 +75,7 @@ build_docker_image() {
         done
     fi
 
-    cd target_build_docker_path
+    cd $target_build_docker_path
     echo "Building Docker image: $image_name:$tag"
     pwd
     ls -la
