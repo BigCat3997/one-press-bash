@@ -80,6 +80,7 @@ build_docker_image() {
     pwd
     ls -la
     docker build \
+        --platform=linux/amd64 \
         -t "$image_name:$tag" \
         "${appended_args[@]}" \
         "$build_context"
