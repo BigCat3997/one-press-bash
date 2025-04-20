@@ -76,6 +76,8 @@ build_docker_image() {
     fi
 
     echo "Building Docker image: $image_name:$tag"
+    pwd
+    ls -la
     docker build \
         -t "$image_name:$tag" \
         "${appended_args[@]}" \
