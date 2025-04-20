@@ -81,12 +81,12 @@ build_docker_image() {
     ls -la
     docker build \
         --platform=linux/amd64 \
-        -t "$image_name:$tag" \
+        -t "$docker_server_uri/$image_name:$tag" \
         "${appended_args[@]}" \
         "$build_context"
 
-    echo "Pushing Docker image: $image_name:$tag"
-    docker push "$image_name:$tag"
+    echo "Pushing Docker image: $docker_server_uri/$image_name:$tag"
+    docker push "$docker_server_uri/$image_name:$tag"
 }
 
 execute() {
