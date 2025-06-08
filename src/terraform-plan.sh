@@ -16,17 +16,6 @@ ARM_CLIENT_ID
 ARM_CLIENT_SECRET
 EOF
 
-set -e
-if [ -z "$LOCAL_DATA_PATH" ]; then
-    echo "Do not use local data file."
-else
-    echo "Use local data file."
-    cp -r $LOCAL_DATA_PATH/. $TARGET_TERRAFORM_MODULE_PATH
-
-    echo "Verify files."
-    tree $TARGET_TERRAFORM_MODULE_PATH
-fi
-
 cd $TARGET_TERRAFORM_MODULE_PATH
 terraform init \
     -backend-config="resource_group_name=${AZURE_BACKEND_RESOURCE_GROUP}" \
